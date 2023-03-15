@@ -11,7 +11,7 @@ import io.dasom.comment.CommentContainer;
 @RequestMapping("/ycs/api")
 public class RefreshController {
 
-	@GetMapping(value="")
+	@GetMapping(value="/searchvideo")
 	public CommentContainer langApi(@RequestParam("videoCode") String videoCode) {
 		CommentContainer commentContainer = new CommentContainer(videoCode);
 		return commentContainer;
