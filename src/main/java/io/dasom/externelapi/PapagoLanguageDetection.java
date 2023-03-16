@@ -32,7 +32,7 @@ public class PapagoLanguageDetection {
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
 
         String responseBody = post(apiURL, requestHeaders, query);
-        System.out.println(responseBody);
+        //System.out.println(responseBody);
         
         try {
         	JSONParser jsonParser = new JSONParser();
