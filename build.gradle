@@ -17,7 +17,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation group: 'com.google.api-client', name: 'google-api-client', version: '2.2.0'	
+	implementation group: 'com.google.api-client', name: 'google-api-client', version: '1.25.0'	
 	implementation group: 'com.google.apis', name: 'google-api-services-youtube', version: 'v3-rev222-1.25.0'
 }
 

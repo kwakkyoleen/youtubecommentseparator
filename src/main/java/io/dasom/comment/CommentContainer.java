@@ -1,5 +1,9 @@
 package io.dasom.comment;
 
+import java.util.List;
+
+import com.google.api.services.youtube.model.CommentThread;
+
 public class CommentContainer {
 	public CommentContainer(String videoCode) {
 		this.videoCode = videoCode;
@@ -7,6 +11,7 @@ public class CommentContainer {
 	}
 	
 	String videoCode;
+	List<CommentThread> videoComment;
 
 	public String getVideoCode() {
 		return videoCode;
@@ -15,5 +20,15 @@ public class CommentContainer {
 	public void setVideoCode(String videoCode) {
 		this.videoCode = videoCode;
 	}
+
+	public List<CommentThread> getVideoComment() {
+		return videoComment;
+	}
+
+	public void setVideoComment(List<CommentThread> videoComment) {
+		this.videoComment = videoComment;
+	}
+	
+	
 	
 }

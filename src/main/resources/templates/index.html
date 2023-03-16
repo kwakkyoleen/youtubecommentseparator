@@ -11,9 +11,9 @@
         </head>
         <body style="margin:5%">
             <h1 style="font-family: 'Permanent Marker', cursive; text-align:center; padding-bottom:1%;"><a th:href="@{/YCS}" style="text-decoration:none; color:inherit;">Youtube Comment Seperator</a></h1>
-            <form th:action="@{/YCS/search}" method="get">
+            <form th:action="@{/ycs/api/searchvideo}" method="get">
                 <div class="form-group" style="font-family: 'Ubuntu', sans-serif;">
-                    <input type="text" name="videourl" placeholder="Type in video Url" class="form-control" style="margin-bottom:10px;" value="">
+                    <input type="text" name="videoCode" placeholder="Type in video Url" class="form-control" style="margin-bottom:10px;" value="">
                     <label for="language-select">Choose a language:</label>
                     <select class="form-control" name="languages" id="language-select" style="display:inline-flex;">
                         <option value="all" selected>--Please choose an option--</option>
