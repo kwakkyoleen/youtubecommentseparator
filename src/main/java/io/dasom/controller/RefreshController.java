@@ -29,10 +29,62 @@ import io.dasom.externelapi.YoutubeCommentApi;
 public class RefreshController {
 
 	@GetMapping(value="/searchvideo")
-	public CommentContainer langApi(@RequestParam("videoCode") String videoCode, @RequestParam("languages") String languages) {
+	public CommentContainer searchVideoApi(@RequestParam("videoCode") String videoCode, @RequestParam("languages") String languages) {
 		ExecutorService excutorService = Executors.newSingleThreadExecutor();
 		
 		CommentContainer commentContainer = new CommentContainer(videoCode);
+		List<CommentThread> rawComments = new ArrayList<>();
+		CommentThreadListResponse response;
+		try {
+			
+			for(int iterationNum = 0; iterationNum <= 3; iterationNum++) {
+			
+				YouTube youtubeService = YoutubeCommentApi.getService();
+		        // Define and execute the API request
+				YouTube.CommentThreads.List request = youtubeService.commentThreads()
+			            .list("snippet");
+			         response = request.setKey(YoutubeCommentApi.getDeveloperKey())
+			        	.setMaxResults(50L)
+			        	.setPageToken(commentContainer.getNextPageToken())
+			            .setVideoId(videoCode)
+			            .execute();
+			         commentContainer.setNextPageToken(response.getNextPageToken());
+			         rawComments.addAll(response.getItems());
+			} 
+		}catch(GeneralSecurityException e) {
+			
+		}catch(IOException e) {
+			
+		}
+		List<PapagoCallable> callableList = new ArrayList<>();
+		int iterationNum = 0;
+		for(iterationNum = 0; iterationNum < rawComments.size(); iterationNum++) {
+			callableList.add(new PapagoCallable(rawComments.get(iterationNum)));
+		}
+		try {
+			List<Future<CommentElement>> futures = excutorService.invokeAll(callableList);
+			for(Future<CommentElement> f : futures) {
+				commentContainer.getVideoComment().add(f.get());
+			}
+		}catch(InterruptedException e) {
+			System.out.println("InterrupedException is occured!");
+		}catch(ExecutionException e) {
+			System.out.println("ExecutionException is occured!");
+		}
+		
+		//System.out.println(PapagoLanguageDetection.detectLang(rawComments.get(0).getSnippet().getTopLevelComment().getSnippet().getTextOriginal()));
+		
+		//System.out.println(rawComments.get(0));
+		return commentContainer;
+	}
+	
+	@GetMapping(value="/nextPage")
+	public CommentContainer nextPageApi(@RequestParam("videoCode") String videoCode, 
+			@RequestParam("languages") String languages, @RequestParam("nextpagetoken") String nextPageToken) {
+		ExecutorService excutorService = Executors.newSingleThreadExecutor();
+		
+		CommentContainer commentContainer = new CommentContainer(videoCode);
+		commentContainer.setNextPageToken(nextPageToken);
 		List<CommentThread> rawComments = new ArrayList<>();
 		CommentThreadListResponse response;
 		try {
