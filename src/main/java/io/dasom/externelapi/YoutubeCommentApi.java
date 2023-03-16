@@ -10,7 +10,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 
 public class YoutubeCommentApi {
-	private static final String DEVELOPER_KEY = "example";
+	private static final String DEVELOPER_KEY = "your key";
 
     private static final String APPLICATION_NAME = "vedio comment";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
