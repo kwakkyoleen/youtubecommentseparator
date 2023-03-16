@@ -15,6 +15,7 @@ import com.google.api.services.youtube.model.CommentThread;
 import com.google.api.services.youtube.model.CommentThreadListResponse;
 
 import io.dasom.comment.CommentContainer;
+import io.dasom.externelapi.PapagoLanguageDetection;
 import io.dasom.externelapi.YoutubeCommentApi;
 
 @RestController
@@ -48,7 +49,9 @@ public class RefreshController {
 			
 		}
 		
-		System.out.println(rawComments.size());
+		System.out.println(PapagoLanguageDetection.detectLang(rawComments.get(0).getSnippet().getTopLevelComment().getSnippet().getTextOriginal()));
+		
+		//System.out.println(rawComments.get(0));
 		return commentContainer;
 	}
 }
